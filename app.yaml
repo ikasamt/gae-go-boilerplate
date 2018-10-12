@@ -10,9 +10,6 @@ handlers:
 - url: /css
   static_dir: public/css
 
-- url: /dist
-  static_dir: frontend-generater/dist
-
 - url: /.*
   script: _go_app
 
