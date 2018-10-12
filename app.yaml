@@ -1,0 +1,18 @@
+service: default
+runtime: go
+api_version: go1
+
+handlers:
+
+- url: /js
+  static_dir: public/js
+
+- url: /css
+  static_dir: public/css
+
+- url: /dist
+  static_dir: frontend-generater/dist
+
+- url: /.*
+  script: _go_app
+

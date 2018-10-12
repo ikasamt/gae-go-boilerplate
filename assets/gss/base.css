@@ -1,0 +1,57 @@
+@def COLOR_PRIMARY #4D84F4;
+@def COLOR_SECONDARY #f5414f;
+@def COLOR_TEXT #2e2e31;
+@def COLOR_BORDER #d1d0d2;
+@def COLOR_SUCCESS #88c459;
+@def COLOR_ERROR #f5414f;
+@def COLOR_WARNING #ffd137;
+
+/**** shades ****/
+@def BLACK #1d1d21;
+@def GRAY_10 #2e2e31;
+@def GRAY_6 #7b7a7d;
+@def GRAY_4 #a5a5a6;
+@def GRAY_3 #bbbbbc;
+@def GRAY_2 #d1d0d2;
+@def GRAY_1 #e8e7e8;
+@def WHITE white;
+
+/*** font ***/
+@font-face {
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 400;
+    src:
+         url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff2) format('woff2'),
+         url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff) format('woff'),
+         url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.otf) format('opentype');
+ }
+
+
+body {
+    font-family: 'Noto Sans JP';
+}
+
+span{
+    color: COLOR_TEXT;
+}
+
+a {
+    color: GRAY_10;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: GRAY_1;
+    text-decoration: underline;
+}
+
+
+h1 {
+    font-size: 15px;
+    border-bottom: solid COLOR_BORDER 1px;
+}
+
+#instantclick-bar {
+    background: COLOR_SECONDARY;
+}

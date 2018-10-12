@@ -1,0 +1,13 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
+    "editor.links": false,
+    "files.trimTrailingWhitespace": true,
+
+    "go.autocompleteUnimportedPackages": true,
+
+    // ワークベンチの色設定
+    "workbench.colorTheme": "Default Dark+",
+
+  }
