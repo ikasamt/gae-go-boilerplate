@@ -1,4 +1,5 @@
-PROJECT_ID := XXXXXXXX
+PROJECT_ID := XXXXXXXXX
+DB_INSTANCE := XXXXXXXXX
 
 infomation:
 	$(info PROJECT_ID: $(PROJECT_ID))
@@ -24,3 +25,5 @@ deploy: infomation
 browse: infomation
 	gcloud app browse --project $(PROJECT_ID)
 
+sqlconnect:
+	gcloud sql connect $(DB_INSTANCE) --project $(PROJECT_ID)

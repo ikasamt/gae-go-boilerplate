@@ -9,11 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	salt      = "T9rrLADK"
-	mysession = "mysession"
-)
-
 func pongHandler(c *gin.Context) {
 	c.Set("rendered", true)
 	c.String(http.StatusOK, "pong")
@@ -24,12 +19,21 @@ func blankHandler(c *gin.Context) {
 	c.Set("action", `index`)
 }
 
-func simplePugHandler(c *gin.Context) {}
+func simplePugHandler(c *gin.Context) {
+	db, _ := NewGormDB(c)
+	defer db.Close()
+
+	var user User
+	db.Debug().First(&user)
+
+	variables := map[string]interface{}{}
+	variables[`user`] = user
+	c.Set(`variables`, variables)
+}
 
 func init() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
-
-	sessionStore := cookie.NewStore([]byte(salt))
+	sessionStore := cookie.NewStore([]byte(saltSTRING))
 
 	root := gin.Default()
 
@@ -38,7 +42,7 @@ func init() {
 	root.Use(pugMiddleware(`layout.jade`))
 	root.Use(errorMiddleware(`layout_blank.jade`))
 
-	root.Use(sessions.Sessions(mysession, sessionStore))
+	root.Use(sessions.Sessions(mySESSION, sessionStore))
 
 	root.GET("/blank/index", blankHandler)
 	root.GET("/ping", pongHandler)

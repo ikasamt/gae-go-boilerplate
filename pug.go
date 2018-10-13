@@ -64,6 +64,10 @@ func RenderPug(c *gin.Context, layoutName string, templateName string) {
 	}
 
 	params := c.MustGet("params").(map[string]interface{})
+	variables := c.MustGet("variables").(map[string]interface{})
+	for k, v := range variables {
+		params[k] = v
+	}
 
 	t, err := template.New("layout").Funcs(funcMap).Parse(layoutHTML)
 	t.New("tmpl").Parse(contentHTML)
