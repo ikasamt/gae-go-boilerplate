@@ -23,11 +23,11 @@ func simplePugHandler(c *gin.Context) {
 	db, _ := NewGormDB(c)
 	defer db.Close()
 
-	var user User
-	db.Debug().First(&user)
+	var users []User
+	db.Debug().Find(&users)
 
 	variables := map[string]interface{}{}
-	variables[`user`] = user
+	variables[`users`] = users
 	c.Set(`variables`, variables)
 }
 

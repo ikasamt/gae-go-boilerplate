@@ -1,3 +1,9 @@
 block content
 
-    span TOP {{ $.user }}
+    span TOP
+
+    h1 users
+
+    div
+        range $i, $user := $.users
+            li {{ $user }}

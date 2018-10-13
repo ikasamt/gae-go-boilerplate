@@ -15,7 +15,8 @@ automatic_scaling:
 
 handlers:
   - url: /favicon.ico
-    static_dir: public/favicon.ico
+    static_files: public/favicon.ico
+    upload: public/favicon.ico
 
   - url: /js
     static_dir: public/js
