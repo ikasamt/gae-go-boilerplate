@@ -52,14 +52,14 @@ func RenderPug(c *gin.Context, layoutName string, templateName string) {
 	layoutHTML, err := jade.ParseFile("views/" + layoutName)
 	if err != nil {
 		log.Errorf(ctx, "Error: %v", err)
-		respondWithError(c, 500, err.Error())
+		respondWithError(c, 400, err.Error())
 		return
 	}
 
 	contentHTML, err := jade.ParseFile("views/" + templateName)
 	if err != nil {
 		log.Errorf(ctx, "Error: %v", err)
-		respondWithError(c, 500, err.Error())
+		respondWithError(c, 400, err.Error())
 		return
 	}
 

@@ -14,6 +14,9 @@ automatic_scaling:
   max_concurrent_requests: 50 # because, cloudsql2 is restricted to 60
 
 handlers:
+  - url: /favicon.ico
+    static_dir: public/favicon.ico
+
   - url: /js
     static_dir: public/js
 
