@@ -32,7 +32,8 @@ func passwordResetCreateHandler(c *gin.Context) {
 
 		// エラーあり
 		if passwordReset.errors != nil {
-			variables[`error_message`] = `Emailは半角で正しい形式で入力してください`
+			log.Debugf(ctx, "passwordReset.errors: %v", passwordReset.errors)
+			variables[`error_message`] = `メールアドレスが見つからないか形式が間違えています。半角で正しい形式で入力してください`
 			variables[`email`] = email
 			c.Set(`variables`, variables)
 			return

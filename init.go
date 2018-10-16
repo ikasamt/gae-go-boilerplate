@@ -72,6 +72,8 @@ func init() {
 		root.GET("/dev/widgets", simplePugHandler)
 		root.GET("/blank/index", blankHandler)
 
+		root.GET("/user/search", UserFulltextListHandler)
+
 		root.GET("/user/login", userLoginHandler)
 		root.POST("/user/login", userLoginHandler)
 		root.GET("/password_reset/new", passwordResetCreateHandler)
@@ -88,10 +90,6 @@ func init() {
 	)
 	{
 		root.GET("/user/logout", userLogoutHandler)
-		root.GET("/user/search", userSearchHandler)
-		root.GET("/user/show/1", userShowHandler)
-		root.POST("/user/put_fulltext", userPutFulltext)
-
 	}
 
 	http.Handle("/", root)

@@ -1,6 +1,7 @@
 package clefs
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -14,6 +15,9 @@ import (
 	"github.com/iancoleman/strcase"
 	"github.com/ikasamt/zapp/zapp"
 	"github.com/jinzhu/gorm"
+	"google.golang.org/appengine"
+	gaelog "google.golang.org/appengine/log"
+	"google.golang.org/appengine/search"
 )
 
 // select All
@@ -300,12 +304,93 @@ func adminAnythingUpdateHandler(c *gin.Context) {
 	c.Redirect(http.StatusFound, backURL)
 }
 
+func AnythingFulltextListHandler(c *gin.Context) {
+	ctx := appengine.NewContext(c.Request)
+	db, _ := NewGormDB(c)
+	defer db.Close()
+
+	instance := Anything{}
+	variables := map[string]interface{}{"instance": instance}
+
+	// 入力文字列を空白区切りで分割する　山田　太郎　→　['山田' '太郎']
+	q := c.Query(`q`)
+	q = strings.Trim(q, ` `) // 前後の空白を除く
+	// 半角・全角で区切る
+	searchWords := []string{}
+	for _, word := range strings.Split(q, ` `) { // 半角
+		for _, w := range strings.Split(word, `　`) { // 全角
+			if w != `` {
+				searchWords = append(searchWords, w)
+			}
+		}
+	}
+	anyIDs := zapp.SearchByGAEFulltext(ctx, `user2`, searchWords)
+
+	var instances []Anything
+	db.Debug().Where(`id in (?)`, anyIDs).Find(&instances)
+
+	variables[`q`] = q
+	variables[`search_words`] = searchWords
+	variables[`instances`] = instances
+	c.Set(`variables`, variables)
+}
+
+func AnythingPutFulltextAllHandler(c *gin.Context) {
+	ctx := appengine.NewContext(c.Request)
+	db, _ := NewGormDB(c)
+	defer db.Close()
+
+	var instances []Anything
+	db.Debug().Find(&instances)
+
+	lower := strings.ToLower(reflect.TypeOf(Anything{}).Name())
+	err := AnythingPutFulltexts(ctx, lower, instances)
+	if err != nil {
+		http.Error(c.Writer, err.Error(), http.StatusInternalServerError)
+	}
+	c.String(200, "OK")
+	c.Set("rendered", true)
+}
+
+func AnythingPutFulltexts(ctx context.Context, idx string, anys []Anything) error {
+	searchAPIIndex, err := search.Open(idx)
+	if err != nil {
+		gaelog.Debugf(ctx, "failed to open index foo : %#v", err)
+		return err
+	}
+
+	keys := []string{}
+	values := []interface{}{}
+	for _, any := range anys {
+		r := reflect.ValueOf(any)
+		method := r.MethodByName("Ngrams")
+		if method.IsValid() {
+			response := method.Call(nil)[0]
+			ngrams := response.Interface().([]string)
+			f := &zapp.Fulltext{
+				Ngram:     strings.Join(ngrams, ` `),
+				CreatedAt: any.CreatedAt,
+				UpdatedAt: any.UpdatedAt,
+			}
+			keys = append(keys, fmt.Sprintf("%d", any.ID))
+			values = append(values, f)
+		}
+	}
+
+	if _, err := searchAPIIndex.PutMulti(ctx, keys, values); err != nil {
+		gaelog.Debugf(ctx, "%v", err)
+		return err
+	}
+	return nil
+}
+
 func AppendAnythingResources(group *gin.RouterGroup) {
 	structName := zapp.GetType(Anything{})
 	controllerName := strcase.ToSnake(structName)
 	log.Println(structName)
 	log.Println(controllerName)
 	group.GET(fmt.Sprintf("/%s/", controllerName), adminAnythingListHandler)
+	group.GET(fmt.Sprintf("/%s/search", controllerName), AnythingFulltextListHandler)
 	group.GET(fmt.Sprintf("/%s/new", controllerName), adminAnythingNewHandler)
 	group.GET(fmt.Sprintf("/%s/edit/:id", controllerName), adminAnythingEditHandler)
 	group.GET(fmt.Sprintf("/%s/show/:id", controllerName), adminAnythingShowHandler)

@@ -2,3 +2,4 @@ environments.go
 environments.yml
 public/css/all.css
 zzz-*.go
+.DS_Store
