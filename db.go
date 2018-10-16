@@ -20,12 +20,9 @@ func (l appengineLogger) Print(v ...interface{}) {
 }
 
 func NewGormDB(c *gin.Context) (db *gorm.DB, err error) {
-	ctx := appengine.NewContext(c.Request)
+	uri := zappEnvironment[`mysql`].(string)
 
-	uri := productionCLOUDSQL
-	if appengine.IsDevAppServer() {
-		uri = localCLOUDSQL
-	}
+	ctx := appengine.NewContext(c.Request)
 	db, err = gorm.Open("mysql", uri)
 	if err != nil {
 		log.Errorf(ctx, "NewGormDB: %v", err)
@@ -33,5 +30,15 @@ func NewGormDB(c *gin.Context) (db *gorm.DB, err error) {
 
 	db.LogMode(true)
 	db.SetLogger(&appengineLogger{context: ctx})
+	return
+}
+
+func NewGormDBSimple() (db *gorm.DB, err error) {
+	uri := zappEnvironment[`mysql`].(string)
+	db, err = gorm.Open("mysql", uri)
+	db.LogMode(true)
+	if err != nil {
+		return
+	}
 	return
 }

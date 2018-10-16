@@ -1,0 +1,13 @@
+div.warning{
+    color:black;
+    background: COLOR_WARNING;
+    border: GRAY_5;
+}
+
+div.error{
+    color:WHITE;
+    background: COLOR_ERROR;
+    border: GRAY_5;
+    padding: 10px 10px 10px 10px;
+    margin: 10px 0px 10px 0px;
+}

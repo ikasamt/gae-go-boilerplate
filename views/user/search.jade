@@ -1,0 +1,21 @@
+block content
+
+    form(action='/user/put_fulltext', method='POST')
+        button.fancy.w200.bg-primary インデックス更新
+
+
+    hr
+
+    form(action='/user/search')
+        input(type='text', name='q', value='{{$.q}}').w300
+        button.fancy.w100.bg-secondary 検索
+
+    h1 users
+
+    div(style='padding:10px 10px 10px 0px;')
+        range $i, $word := $.words
+            span.bg-gray2(style='padding:2px 5px 2px 5px;') {{ $word }}
+
+    div.search_result
+        range $i, $user := $.users
+            li {{ Highlight $user $.words }}

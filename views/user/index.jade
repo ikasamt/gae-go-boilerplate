@@ -1,5 +1,9 @@
-block title
-  title Article Titleaaa
-
 block content
-  h1 this is user index file
+
+    span TOP
+
+    h1 users
+
+    div
+        range $i, $user := $.users
+            li {{ $user }}

@@ -1,20 +1,27 @@
-@def COLOR_PRIMARY #4D84F4;
-@def COLOR_SECONDARY #f5414f;
-@def COLOR_TEXT #2e2e31;
-@def COLOR_BORDER #d1d0d2;
-@def COLOR_SUCCESS #88c459;
-@def COLOR_ERROR #f5414f;
-@def COLOR_WARNING #ffd137;
+@def COLOR_PRIMARY #EF5350;
+@def COLOR_SECONDARY #EF9A9A;
+
+@def COLOR_TEXT #000000;
+@def COLOR_BORDER #000000;
+
+@def COLOR_SUCCESS #00C853;
+@def COLOR_WARNING #EEFF41;
+@def COLOR_ERROR #D50000;
 
 /**** shades ****/
+@def GRAY_1 #F5F5F5;
+@def GRAY_2 #EEEEEE;
+@def GRAY_3 #E0E0E0;
+@def GRAY_4 #BDBDBD;
+@def GRAY_5 #9E9E9E;
+@def GRAY_6 #757575;
+@def GRAY_7 #616161;
+@def GRAY_8 #424242;
+@def GRAY_9 #212121;
+@def GRAY_10 #FAFAFA;
+
 @def BLACK #1d1d21;
-@def GRAY_10 #2e2e31;
-@def GRAY_6 #7b7a7d;
-@def GRAY_4 #a5a5a6;
-@def GRAY_3 #bbbbbc;
-@def GRAY_2 #d1d0d2;
-@def GRAY_1 #e8e7e8;
-@def WHITE white;
+@def WHITE #f9f9f9;
 
 /*** font ***/
 @font-face {
@@ -26,6 +33,10 @@
          url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff) format('woff'),
          url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.otf) format('opentype');
  }
+
+/*** color ***/
+@def COLOR_BLUE #26a69a;
+@def COLOR_YELLOW #FDD835;
 
 
 body {
@@ -52,6 +63,8 @@ h1 {
     border-bottom: solid COLOR_BORDER 1px;
 }
 
-#instantclick-bar {
-    background: COLOR_SECONDARY;
+
+div.search_result b{
+    background: COLOR_YELLOW;
 }
+

@@ -15,6 +15,14 @@ import (
 )
 
 var funcMap = template.FuncMap{
+	"Highlight": func(value interface{}, ts []string) template.HTML {
+		tmp := fmt.Sprintf("%v", value)
+		// 指定した複数の単語をハイライトする
+		for _, t := range ts {
+			tmp = strings.Replace(tmp, t, fmt.Sprintf("<b>%s</b>", t), 10)
+		}
+		return template.HTML(tmp)
+	},
 	"Comma": func(value interface{}) string {
 		switch t := value.(type) {
 		case int:
@@ -64,9 +72,11 @@ func RenderPug(c *gin.Context, layoutName string, templateName string) {
 	}
 
 	params := c.MustGet("params").(map[string]interface{})
-	variables := c.MustGet("variables").(map[string]interface{})
-	for k, v := range variables {
-		params[k] = v
+	variables, ok := c.Get("variables")
+	if ok {
+		for k, v := range variables.(map[string]interface{}) {
+			params[k] = v
+		}
 	}
 
 	t, err := template.New("layout").Funcs(funcMap).Parse(layoutHTML)

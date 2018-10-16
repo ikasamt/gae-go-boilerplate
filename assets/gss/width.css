@@ -1,0 +1,28 @@
+.w50 {width: 50px;}
+.w100 {width: 100px;}
+.w200 {width: 200px;}
+.w300 {width: 300px;}
+.w400 {width: 400px;}
+.w500 {width: 500px;}
+
+.bg-gray1 { background: GRAY_1}
+.bg-gray2 { background: GRAY_2}
+.bg-gray3 { background: GRAY_3}
+.bg-gray4 { background: GRAY_4}
+.bg-gray5 { background: GRAY_5}
+.bg-gray6 { background: GRAY_6}
+.bg-gray7 { background: GRAY_7}
+.bg-gray8 { background: GRAY_8}
+.bg-gray9 { background: GRAY_9}
+.bg-gray10 { background: GRAY_10}
+
+.bg-primary{
+    background-color: COLOR_PRIMARY;
+    border-color: COLOR_PRIMARY;
+}
+
+.bg-secondary{
+    background-color: COLOR_SECONDARY;
+    border-color: COLOR_SECONDARY;
+}
+

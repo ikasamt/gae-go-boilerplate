@@ -26,6 +26,7 @@ func errorMiddleware(layoutName string) gin.HandlerFunc {
 func pugMiddleware(layoutName string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Next()
+		log.Println(fmt.Sprintf(`[pugMiddleware:%s]`, layoutName))
 
 		_, ok := c.Get("rendered")
 		if !ok {
@@ -33,6 +34,7 @@ func pugMiddleware(layoutName string) gin.HandlerFunc {
 			action := c.MustGet("action").(string)
 			templateName := fmt.Sprintf("%s/%s.jade", controller, action)
 			RenderPug(c, layoutName, templateName)
+			c.Set("rendered", true)
 		}
 
 	}

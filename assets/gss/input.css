@@ -1,0 +1,6 @@
+input[type="text"] {
+    background: WHITE no-repeat 0 0;
+    border: 0px solid GRAY_1;
+    padding: 0px 5px 0px 5px;
+    line-height: 30px;
+}

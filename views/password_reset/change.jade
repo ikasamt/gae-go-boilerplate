@@ -1,0 +1,18 @@
+extend
+
+block content
+
+        h2  Teame パスワード更新
+
+        div Email： {{$.instance.User.Email}}
+
+        form(method='POST')
+            b 新しいパスワード：
+            br
+            input(type='password', name='new_password')
+            span(style='color:red') 
+                {{ $.error }}
+
+
+            br
+            input(type='submit', value='パスワードを更新する')

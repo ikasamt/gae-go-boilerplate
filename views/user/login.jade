@@ -1,0 +1,28 @@
+
+block content
+
+        form(method='POST')
+
+            {{ if $.error_message }}
+            div.error {{ $.error_message }}
+            {{ end }}
+
+            br
+
+            span email
+            input(type='text', name='email', value='{{ $.email }}')
+
+            br
+
+            span password
+            input(type='password', name='password')
+
+            br
+
+            input(type='hidden', name='next_url', value='{{ $.next_url }}')
+            input(type='submit', value='ログインする')
+
+
+            br
+
+            a(href='/password_reset/new') パスワードをお忘れの方はこちら

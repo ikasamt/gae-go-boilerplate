@@ -1,0 +1,11 @@
+button.fancy{
+    position: relative;
+    z-index: 2;
+    line-height: 20px;
+
+    color: WHITE;
+}
+
+button.fancy:focus {
+    outline: 0;
+}

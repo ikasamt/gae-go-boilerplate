@@ -1,8 +1,0 @@
-package app
-
-var (
-	saltSTRING         = "XXXXXXXXXX"
-	mySESSION          = "mysession"
-	localCLOUDSQL      = "root@tcp(localhost:3306)/DBNAME?parseTime=true&loc=Asia%2FTokyo&charset=utf8mb4"
-	productionCLOUDSQL = "root:PASSWORD@cloudsql(PROJECT_ID:CLOUDSQL_REGION:CLOUDSQL_INSTANCE_NAME)/DBNAME?parseTime=true&loc=Asia%2FTokyo&charset=utf8mb4"
-)

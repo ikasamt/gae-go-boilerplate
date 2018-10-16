@@ -1,0 +1,18 @@
+extend
+
+block content
+
+        span パスワードをリセットします。メールアドレスを入力してください。
+
+        form(method='POST')
+
+            {{ if $.error_message }}
+            span.red {{ $.error_message }}
+            {{ end }}
+
+            br
+            span email
+            input(type='email', name='email', value='{{ $.email }}')
+
+            br
+            input(type='submit', value='送信')
