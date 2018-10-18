@@ -4,6 +4,10 @@ html
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
         meta(name='viewport', content='width=device-width, initial-scale=1')
+        {{ if $.__is_gae_dev_appserver }}
+        script(src="http://localhost:35730/livereload.js")
+        {{ end }}
+
         link(href="//fonts.googleapis.com/earlyaccess/notosansjp.css", rel='stylesheet', type='text/css')
         link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
         link(href="/css/all.css" rel="stylesheet" type="text/css")
