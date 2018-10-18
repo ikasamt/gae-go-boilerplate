@@ -71,7 +71,7 @@ func paramsMiddleware(prefix string) gin.HandlerFunc {
 		params[`action`] = c.MustGet("action")
 
 		if appengine.IsDevAppServer() {
-			c.Set(`__is_gae_dev_appserver`, true)
+			params[`__is_gae_dev_appserver`] = true
 		}
 
 		// set parameters
